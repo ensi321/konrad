@@ -2,7 +2,7 @@ import React from 'react';
 import Games from './games.jsx';
 import Radium from 'radium';
 
-var INITIAL_DATE = new Date(2017, 2, 26)
+var INITIAL_DATE = new Date(2014, 2, 29)
 
 
 class App extends React.Component {
@@ -53,10 +53,14 @@ class App extends React.Component {
 				marginRight: '1rem',
 				fontSize: '2.2rem',
 				textAlign: 'center',
-				whiteSpace: 'nowrap',
+				
+
+				'@media (min-width: 484px)':{
+					whiteSpace: 'nowrap'	
+				},
 
 				'@media (min-width: 940px)':{
-					width: 'auto',
+					width: '310px',
 					marginLeft: '2.2rem',
 					marginRight: '2.2rem',
 				}
