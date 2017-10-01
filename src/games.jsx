@@ -1,13 +1,15 @@
 import React from 'react';
 import axios from 'axios';
 
+import Game from './game.jsx'
+
 class Games extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
 			games: []
-		}
+		};
 
 	}
 
@@ -22,18 +24,19 @@ class Games extends React.Component {
 
 		var url = `http://gd2.mlb.com/components/game/mlb/year_${year}/month_${month}/day_${day}/master_scoreboard.json`;
 
-
-
 		axios.get(url)
-			.then(function(res){
+			.then((res) => {
+				console.log(res);
 				var games = res.data.data.games.game;
 				// If this day has more than one game
 				if (Array.isArray(games)){
-					this.setState({games: {games}});
+					console.log('state is set1');
+					this.setState({games: games});
 				}
-				// Else if this day has only one game
+				// Else if this day has only one game or zero game
 				else {
-					this.setState({games: [{games}]});
+					console.log('state is set2');
+					this.setState({games: [games]});
 				}
 			})
 			.catch(function(err){
@@ -45,14 +48,19 @@ class Games extends React.Component {
 		this.updateContent();
 	}
 
-	componentDidUpdate(){
-		this.updateContent();
+	componentWillReceiveProps(){
+		this.updateContent();	
 	}
+
 
 	render(){
 		return(
 			<div>
-				{console.log(this.state)}
+				<ul>
+					{this.state.games.map((game, i) =>
+						<Game game={game} key={i} />
+					)}
+				</ul>
 			</div>
 			)
 	}
