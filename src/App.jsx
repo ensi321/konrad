@@ -1,7 +1,9 @@
 import React from 'react';
-import Games from './games.jsx'
+import Games from './games.jsx';
+import Radium from 'radium';
 
-var INITIAL_DATE = new Date(2016, 8, 24)
+var INITIAL_DATE = new Date(2017, 2, 26)
+
 
 class App extends React.Component {
 
@@ -22,6 +24,7 @@ class App extends React.Component {
 		this.setState({current_date: new_date});
 	}
 
+	// Decrement current date by 1
 	previousDay(){
 		var new_date = new Date(this.state.current_date.getTime());
 		new_date.setDate(new_date.getDate() - 1);
@@ -29,16 +32,64 @@ class App extends React.Component {
 	}
 
 	render() {
+		const style = {
+			body: {
+				"fontSize": "1.5rem",
+				"lineHeight": "1.5",
+				"fontFamily": '"proxima-nova","Proxima Nova","Helvetica Neue",Helvetica,Arial,sans-serif',
+				"color": '#3E4956'
+			},
+			appHeader: {
+				width: '100%',
+				margin: 'auto',
+				marginTop: '2.2rem',
+				textAlign: 'center'
+			},
+			currentDate: {
+				display: 'inline-block',
+				color: '#3498DB',
+				width: '50%',
+				marginLeft: '1rem',
+				marginRight: '1rem',
+				fontSize: '2.2rem',
+				textAlign: 'center',
+				whiteSpace: 'nowrap',
 
+				'@media (min-width: 940px)':{
+					width: 'auto',
+					marginLeft: '2.2rem',
+					marginRight: '2.2rem',
+				}
+			},
+			dayButton: {
+				textDecoration: 'none',
+				display: 'inline-block',
+				padding: '8px 20px',
+				borderRadius: '50%',
+				backgroundColor: '#f1f1f1',
+				'@media (min-width: 940px)':{
+					':hover': {
+						backgroundColor: '#ddd'
+					}
+				}
+
+			},
+
+
+		};
 		return (
-		 <div>
-		 	<button onClick={this.previousDay}> Previous </button>
-		    {this.state.current_date.toDateString()}
-		    <button onClick={this.nextDay}> Next </button>
-		    <Games current_date={this.state.current_date} />
-		 </div>
+			<div style={style.body}>
+				<div className="appHeader" style={style.appHeader}>
+					<a onClick={this.previousDay} style={[style.dayButton, style.previousButton]} key="previous"> &#8249; </a>
+					<div style={style.currentDate}>
+						{this.state.current_date.toDateString()}
+					</div>
+					<a onClick={this.nextDay} style={[style.dayButton, style.nextButton]} key="next"> &#8250; </a>
+				</div>
+				<Games current_date={this.state.current_date} />
+			</div>
 		);
 	}
 }
 
-export default App;
+export default Radium(App);

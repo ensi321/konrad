@@ -18,6 +18,7 @@
   "homepage": "https://github.com/naviechan/konrad#readme",
   "dependencies": {
     "axios": "^0.16.2",
+    "radium": "^0.19.4",
     "react": "^16.0.0",
     "react-scripts": "^1.0.14"
   }

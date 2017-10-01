@@ -1,22 +1,40 @@
 import React from 'react';
-
+import Radium from 'radium';
 
 class Game extends React.Component {
 	render(){
-		if (this.props.game === undefined){
+		const style = {
+			noGame: {
+				display: 'block',
+				textAlign: 'center',
+				fontSize: '2rem'
+			},
+			game: {
+				border: 'black solid 1px'
+			}
+
+		};
+		const game = this.props.game;
+
+		if (game === undefined){
 			return (
-				<div>
+				<div style={[style.noGame]}>
 					<span>
-						No game found
+						No games today
 					</span>
 				</div>
 			)
 		}
 		else {
 			return (
-				<div>
-					hey 
-					{console.log(this.props.game.home_team_name + ' ' + this.props.game.away_team_name)}
+				<div style={[style.game]}>
+					{[game.home_team_name, 
+					game.linescore === undefined? '' : game.linescore.r.home, 
+					game.away_team_name,
+					game.linescore === undefined? '' : game.linescore.r.away,
+					game.status.status ].join(' ')}
+
+
 				</div>
 			)	
 		}
@@ -24,4 +42,4 @@ class Game extends React.Component {
 	}
 }
 
-export default Game;
+export default Radium(Game);
