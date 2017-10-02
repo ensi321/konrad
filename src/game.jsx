@@ -1,6 +1,8 @@
 import React from 'react';
 import Radium from 'radium';
 
+const IMG_DIR = './img/';
+
 class Game extends React.Component {
 	render(){
 		const style = {
@@ -59,9 +61,13 @@ class Game extends React.Component {
 
 			var awayTeamWon = awayTeamScore > homeTeamScore? true : false;
 
+			// Find out the path of the teams logos
+			// var awayTeamLogo = IMG_DIR + game.away_team_id + '.jpg';
+			// var homeTeamLogo = IMG_DIR + game.home_team_id + '.jpg';
+
 			return (
 				<div style={[style.game]}>
-					<img src={require("./img/tor.jpg")} style={style.teamLogo}/>
+					<img src={require("./img/141.jpg")} style={style.teamLogo}/>
 					<div className="away_team" style={style.teamName}>
 						{
 							awayTeamWon ? 
@@ -77,7 +83,7 @@ class Game extends React.Component {
 
 					<br/>
 
-					<img src={require("./img/tex.jpg")} style={style.teamLogo}/>
+					<img src={require("./img/140.jpg")} style={style.teamLogo}/>
 					<div className="home_team" style={style.teamName}>
 						{
 							!awayTeamWon ? 

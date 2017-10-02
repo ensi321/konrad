@@ -2,15 +2,17 @@ import React from 'react';
 import Games from './games.jsx';
 import Radium from 'radium';
 
-var INITIAL_DATE = new Date(2014, 2, 29)
-
+var INITIAL_DATE = new Date(2017, 2, 5)
+// Initial favourite team is blue jay
+var INITIAL_FAV_TEAM = '141';
 
 class App extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			current_date: INITIAL_DATE
+			current_date: INITIAL_DATE,
+			fav_team: INITIAL_FAV_TEAM
 		}
 		this.nextDay = this.nextDay.bind(this);
 		this.previousDay = this.previousDay.bind(this);
@@ -21,14 +23,14 @@ class App extends React.Component {
 	nextDay(){
 		var new_date = new Date(this.state.current_date.getTime());
 		new_date.setDate(new_date.getDate() + 1);
-		this.setState({current_date: new_date});
+		this.setState({current_date: new_date, fav_team: this.state.fav_team});
 	}
 
 	// Decrement current date by 1
 	previousDay(){
 		var new_date = new Date(this.state.current_date.getTime());
 		new_date.setDate(new_date.getDate() - 1);
-		this.setState({current_date: new_date});
+		this.setState({current_date: new_date, fav_team: this.state.fav_team});
 	}
 
 	render() {
@@ -90,7 +92,7 @@ class App extends React.Component {
 					</div>
 					<a onClick={this.nextDay} style={[style.dayButton, style.nextButton]} key="next"> &#8250; </a>
 				</div>
-				<Games current_date={this.state.current_date} />
+				<Games current_date={this.state.current_date} fav_team={this.state.fav_team} />
 			</div>
 		);
 	}

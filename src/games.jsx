@@ -63,12 +63,34 @@ class Games extends React.Component {
 			}
 
 		};
+		const fav_team = this.props.fav_team;
 
+		// Return games that involves the fav team first
 		return(
 			<div style={style.gamesWrapper}>
-				{this.state.games.map((game, i) =>
-					<Game game={game} key={i} />
-				)}
+				{this.state.games.map((game, i) =>{
+					// We take advantage of the lazy evaluation here
+					// If there is no game, render it as normal
+					if (game === undefined || game.away_team_id == fav_team || game.home_team_id == fav_team
+						){
+						return (
+							<Game game={game} key={i} />	
+							);
+					}
+				})}
+
+				{this.state.games.map((game, i) =>{
+
+					if (game !== undefined && game.away_team_id != fav_team && game.home_team_id != fav_team
+						){
+						return (
+							<Game game={game} key={i} />	
+							);
+					}
+				})}
+
+					
+				
 
 			</div>
 			)
