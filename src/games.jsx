@@ -48,6 +48,32 @@ class Games extends React.Component {
 			});
 	}
 
+	// Given games and fav_team, sort games such that games that involves
+	// fav_team will be placed at the beginning of the list
+	sortGames(games, fav_team){
+		// Return if there is no game in games
+		if (games[0] === undefined){
+			return games;
+		}
+
+		// List of games that involve fav_team
+		var fav_team_game = [];
+		games.forEach((game) => {
+			if (game.away_team_id == fav_team || game.home_team_id == fav_team){
+				fav_team_game.push(game);
+			}
+		});
+
+		// Get the rest of the games
+		games = games.filter((game) => {
+			return (game.away_team_id != fav_team && game.home_team_id != fav_team)
+		});
+
+		// Concat them together
+		return fav_team_game.concat(games);
+
+	}
+
 	componentDidMount(){
 		this.updateContent();
 	}
@@ -65,30 +91,22 @@ class Games extends React.Component {
 
 		};
 		const fav_team = this.props.fav_team;
+		var games = this.state.games;
+
+		// We want to sort the games such that games with fav_team
+		// will be at the beginning of the list
+		games = this.sortGames(games, fav_team);
 
 		// Return games that involves the fav team first
 		return(
 			<div style={style.gamesWrapper}>
-				{this.state.games.map((game, i) =>{
-					// We take advantage of the lazy evaluation here
-					// If there is no game, render it as normal
-					if (game === undefined || game.away_team_id == fav_team || game.home_team_id == fav_team
-						){
-						return (
-							<Game game={game} key={i} />	
-							);
-					}
+				{games.map((game, i) =>{
+					return (
+						<Game game={game} key={i} />	
+						);
+
 				})}
 
-				{this.state.games.map((game, i) =>{
-
-					if (game !== undefined && game.away_team_id != fav_team && game.home_team_id != fav_team
-						){
-						return (
-							<Game game={game} key={i} />	
-							);
-					}
-				})}
 
 					
 				
