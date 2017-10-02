@@ -24,6 +24,7 @@ class App extends React.Component {
 	nextDay(){
 		var new_date = new Date(this.state.current_date.getTime());
 		new_date.setDate(new_date.getDate() + 1);
+		this.picker.setDate(new_date);
 		this.setState({current_date: new_date, fav_team: this.state.fav_team});
 	}
 
@@ -31,6 +32,7 @@ class App extends React.Component {
 	previousDay(){
 		var new_date = new Date(this.state.current_date.getTime());
 		new_date.setDate(new_date.getDate() - 1);
+		this.picker.setDate(new_date);
 		this.setState({current_date: new_date, fav_team: this.state.fav_team});
 	}
 
@@ -39,15 +41,16 @@ class App extends React.Component {
 		var picker = new Pikaday({
 			field: this.refs.datepicker,
 			defaultDate: this.state.current_date,
+			setDefaultDate: true,
 			position: 'bottom right',
 	        onSelect: (date) => {
 	 			this.setState({current_date: date, fav_team: this.state.fav_team});       	
 
 	        }
 		});
-
-
+		this.picker = picker;
 	}
+
 
 	render() {
 		const style = {
