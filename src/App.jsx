@@ -1,6 +1,7 @@
 import React from 'react';
 import Games from './games.jsx';
 import Radium from 'radium';
+import Pikaday from 'pikaday';
 
 var INITIAL_DATE = new Date(2017, 2, 5)
 // Initial favourite team is blue jay
@@ -33,6 +34,21 @@ class App extends React.Component {
 		this.setState({current_date: new_date, fav_team: this.state.fav_team});
 	}
 
+	componentDidMount(){
+		// Populate the pikaday for date picker
+		var picker = new Pikaday({
+			field: this.refs.datepicker,
+			defaultDate: this.state.current_date,
+			position: 'bottom right',
+	        onSelect: (date) => {
+	 			this.setState({current_date: date, fav_team: this.state.fav_team});       	
+
+	        }
+		});
+
+
+	}
+
 	render() {
 		const style = {
 			body: {
@@ -58,13 +74,16 @@ class App extends React.Component {
 				
 
 				'@media (min-width: 484px)':{
-					whiteSpace: 'nowrap'	
+					whiteSpace: 'nowrap'
 				},
 
 				'@media (min-width: 940px)':{
 					width: '310px',
 					marginLeft: '2.2rem',
 					marginRight: '2.2rem',
+					':hover': {
+						color: '#ff8000'
+					}
 				}
 			},
 			dayButton: {
@@ -87,7 +106,7 @@ class App extends React.Component {
 			<div style={style.body}>
 				<div className="appHeader" style={style.appHeader}>
 					<a onClick={this.previousDay} style={[style.dayButton, style.previousButton]} key="previous"> &#8249; </a>
-					<div style={style.currentDate}>
+					<div style={style.currentDate} ref="datepicker">
 						{this.state.current_date.toDateString()}
 					</div>
 					<a onClick={this.nextDay} style={[style.dayButton, style.nextButton]} key="next"> &#8250; </a>

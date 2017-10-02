@@ -42,8 +42,9 @@ class Games extends React.Component {
 				}
 
 			})
-			.catch(function(err){
+			.catch((err) => {
 				console.log(err);
+				this.forceUpdate();
 			});
 	}
 
