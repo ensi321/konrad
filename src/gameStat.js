@@ -17,6 +17,8 @@ class GameStat extends React.Component {
 
 		this.showAwayTeam = this.showAwayTeam.bind(this);
 		this.showHomeTeam = this.showHomeTeam.bind(this);
+		this.showBatter = this.showBatter.bind(this);
+		this.showPitcher = this.showPitcher.bind(this);
 
 	}
 	// Store the result from ajax to this.state
@@ -43,6 +45,26 @@ class GameStat extends React.Component {
 
 				}
 			})
+			boxscore.pitching.forEach((team) =>{
+				var pitcher = team.pitcher;
+				if (team.team_flag === 'home'){
+					this.setState((prevState) => {
+						return {
+							away_pitcher: prevState.away_pitcher,
+							home_pitcher: pitcher
+						}
+					})
+				}
+				else if(team.team_flag === 'away'){
+					this.setState((prevState) => {
+						return {
+							away_pitcher: pitcher,
+							home_pitcher: prevState.home_pitcher,
+						}
+					})
+
+				}
+			})
 
 		}
 		catch(err){
@@ -57,6 +79,15 @@ class GameStat extends React.Component {
 	// Will display home team's batter
 	showHomeTeam(){
 		this.setState({show_away_team: false});
+	}
+
+	// Will display batter
+	showBatter(){
+		this.setState({show_batter: true});
+	}
+	// Will display pitcher
+	showPitcher(){
+		this.setState({show_batter: false});
 	}
 
 	componentDidMount(){
@@ -74,11 +105,21 @@ class GameStat extends React.Component {
 				width: '100%',
 				textAlign: 'center'
 			},
+			wrapper: {
+				display: 'inline-block',
+				width: '50%',
+			},
 			gameStatHomeTeam: {
 				marginLeft: '10%',
 			},
 			gameStatAwayTeam: {
 				marginRight: '10%'
+			},
+			batter_btn: {
+				marginRight: '7%',	
+			},
+			pitcher_btn: {
+				marginLeft: '7%',	
 			},
 			clickable: {
 				'@media (min-width: 940px)':{
@@ -95,53 +136,118 @@ class GameStat extends React.Component {
 		}
 		const boxscore = this.props.boxscore;
 		try{
-			var stat_to_show = this.state.show_away_team ? this.state.away_batter : this.state.home_batter;
+			var stat_to_show = {};
+
+			if (this.state.show_away_team && this.state.show_batter){
+				stat_to_show = this.state.away_batter;
+			}
+			else if (this.state.show_away_team && !this.state.show_batter){
+				stat_to_show = this.state.away_pitcher;
+			}
+			else if (!this.state.show_away_team && this.state.show_batter){
+				stat_to_show = this.state.home_batter;
+			}
+			else if (!this.state.show_away_team && !this.state.show_batter){
+				stat_to_show = this.state.home_pitcher;
+			}
+			
 
 			return(
 				<div style={style.gameStat}>
-					<span style={[style.gameStatAwayTeam, style.clickable]} key="away_team" onClick={this.showAwayTeam}>
-						{
-							this.state.show_away_team ? 
-								<strong> {boxscore.away_team_code.toUpperCase()} </strong>:
-								boxscore.away_team_code.toUpperCase()
-						}
-					</span>
-					|
-					<span style={[style.gameStatHomeTeam, style.clickable]} key="home_team" onClick={this.showHomeTeam}>
-						{
-							!this.state.show_away_team ? 
-								<strong> {boxscore.home_team_code.toUpperCase()} </strong>:
-								boxscore.home_team_code.toUpperCase()
-						}
-					</span>
+					<div style={style.wrapper} >
+						<span style={[style.gameStatAwayTeam, style.clickable]} key="away_team" onClick={this.showAwayTeam}>
+							{
+								this.state.show_away_team ? 
+									<strong> {boxscore.away_team_code.toUpperCase()} </strong>:
+									boxscore.away_team_code.toUpperCase()
+							}
+						</span>
+						|
+						<span style={[style.gameStatHomeTeam, style.clickable]} key="home_team" onClick={this.showHomeTeam}>
+							{
+								!this.state.show_away_team ? 
+									<strong> {boxscore.home_team_code.toUpperCase()} </strong>:
+									boxscore.home_team_code.toUpperCase()
+							}
+						</span>
+					</div>
+
+					<div style={style.wrapper} >
+						<span style={[style.batter_btn, style.clickable]} key="batter" onClick={this.showBatter}>
+							{
+								this.state.show_batter ? 
+									<strong> Batter </strong>:
+									'Batter'
+							}
+						</span>
+						|
+						<span style={[style.pitcher_btn, style.clickable]} key="pitcher" onClick={this.showPitcher}>
+							{
+								!this.state.show_batter ? 
+									<strong> Pitcher </strong>:
+									'Pitcher'
+							}
+						</span>
+					</div>
 
 					<table style={style.statTable}>
 						<tbody>
-							<tr>
-								<th>Name </th>
-								<th>AB   </th>
-								<th>RH   </th>
-								<th>RBI  </th>
-								<th>BB   </th>
-								<th>SO   </th>
-								<th>AVG  </th>
-							</tr>
+							{
+								this.state.show_batter ?
+									<tr>
+										<th>Name </th>
+										<th>AB   </th>
+										<th>RH   </th>
+										<th>RBI  </th>
+										<th>BB   </th>
+										<th>SO   </th>
+										<th>AVG  </th>
+									</tr>:
+									<tr>
+										<th>Name </th>
+										<th>H   </th>
+										<th>R   </th>
+										<th>ER   </th>
+										<th>BB   </th>
+										<th>SO   </th>
+										<th>HR   </th>
+										<th>ERA   </th>
+									</tr>
+							}
+								
 							{
 								
-								stat_to_show.map((batter, i) =>{
+								stat_to_show.map((person, i) =>{
 									if (i < 5){
-										return (
-											<tr key={i}>
-												<td> {batter.name_display_first_last.split(' ')[1]} </td>
-												<td> {batter.ab} </td>
-												<td> {batter.hr} </td>
-												<td> {batter.rbi} </td>
-												<td> {batter.bb} </td>
-												<td> {batter.so} </td>
-												<td> {batter.avg} </td>
+										if (this.state.show_batter){
+											return (
+												<tr key={i}>
+													<td> {person.name_display_first_last.split(' ')[1]} </td>
+													<td> {person.ab} </td>
+													<td> {person.hr} </td>
+													<td> {person.rbi} </td>
+													<td> {person.bb} </td>
+													<td> {person.so} </td>
+													<td> {person.avg} </td>
 
-											</tr>
-											)											
+												</tr>
+												)											
+										}
+										else {
+											return (
+												<tr key={i}>
+													<td> {person.name_display_first_last.split(' ')[1]} </td>
+													<td> {person.h} </td>
+													<td> {person.r} </td>
+													<td> {person.er} </td>
+													<td> {person.bb} </td>
+													<td> {person.so} </td>
+													<td> {person.hr} </td>
+													<td> {person.era} </td>
+
+												</tr>
+												)		
+										}
 									}
 
 								})
