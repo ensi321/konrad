@@ -17,6 +17,7 @@ class App extends React.Component {
 		}
 		this.nextDay = this.nextDay.bind(this);
 		this.previousDay = this.previousDay.bind(this);
+		this.today = this.today.bind(this);
 
 	}
 
@@ -32,6 +33,14 @@ class App extends React.Component {
 	previousDay(){
 		var new_date = new Date(this.state.current_date.getTime());
 		new_date.setDate(new_date.getDate() - 1);
+		this.picker.setDate(new_date);
+		this.setState({current_date: new_date, fav_team: this.state.fav_team});
+	}
+
+	// Set current date to today
+
+	today(){
+		var new_date = new Date();
 		this.picker.setDate(new_date);
 		this.setState({current_date: new_date, fav_team: this.state.fav_team});
 	}
@@ -58,9 +67,11 @@ class App extends React.Component {
 				"fontSize": "1.5rem",
 				"lineHeight": "1.5",
 				"fontFamily": '"proxima-nova","Proxima Nova","Helvetica Neue",Helvetica,Arial,sans-serif',
-				"color": '#3E4956'
+				"color": '#3E4956',
+				position: 'relative'
 			},
 			appHeader: {
+				position: 'relative',
 				width: '100%',
 				margin: 'auto',
 				marginTop: '2.2rem',
@@ -95,6 +106,7 @@ class App extends React.Component {
 				padding: '8px 20px',
 				borderRadius: '50%',
 				backgroundColor: '#f1f1f1',
+				cursor: 'pointer',
 				'@media (min-width: 940px)':{
 					':hover': {
 						backgroundColor: '#ddd'
@@ -102,12 +114,32 @@ class App extends React.Component {
 				}
 
 			},
+			todayButton: {
+				display: 'none',
+				position: 'absolute',
+				margin: 'auto',
+				left: '10%',
+				top: '0',
+				bottom: '0',
+				padding: '8px 20px',
+				cursor: 'pointer',
+
+				color: '#3498D8',
+				background: 'transparent',
+				border: '2px solid #3498DB',
+				borderRadius: '60px',
+				'@media (min-width: 940px)':{
+					'display': 'inline-block'
+				}
+
+			}
 
 
 		};
 		return (
 			<div style={style.body}>
 				<div className="appHeader" style={style.appHeader}>
+					<button onClick={this.today}  key="today" style={style.todayButton}> Today </button>
 					<a onClick={this.previousDay} style={[style.dayButton, style.previousButton]} key="previous"> &#8249; </a>
 					<div style={style.currentDate} ref="datepicker">
 						{this.state.current_date.toDateString()}
