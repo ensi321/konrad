@@ -10,7 +10,8 @@ class GameDetail extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			boxscore: {}
+			boxscore: {},
+			fetch_fail: false,
 		};
 
 	}
@@ -29,12 +30,13 @@ class GameDetail extends React.Component {
 
 		axios.get(url)
 			.then((res) => {
-				this.setState({boxscore: res.data.data.boxscore});
+				this.setState({boxscore: res.data.data.boxscore, fetch_fail: false});
 
 			})
 			.catch((err) => {
 				console.log(err);
-				this.forceUpdate();
+				// Force render an error message for the user
+				this.setState({fetch_fail: true});
 			});
 
 
@@ -54,10 +56,20 @@ class GameDetail extends React.Component {
 				'@media (min-width: 812px)':{
 					borderBottom: 'grey solid 1px'
 				}
+			},
+			errorMessage:{
+				marginLeft: '10px'
 			}
 		}
 		const boxscore = this.state.boxscore;
 		try {
+			if (this.state.fetch_fail){
+				return (
+					<div style={style.gameDetail}>
+						<span style={style.errorMessage}> Unable to fetch game detail </span>
+					</div>
+				)
+			}
 			return (
 					<div style={style.gameDetail}>
 						<GameInning boxscore={boxscore} />

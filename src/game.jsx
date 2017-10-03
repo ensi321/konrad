@@ -2,7 +2,6 @@ import React from 'react';
 import Radium from 'radium';
 import GameDetail from './gameDetail'
 
-// const IMG_DIR = './img/';
 
 class Game extends React.Component {
 	constructor(props) {
@@ -20,6 +19,7 @@ class Game extends React.Component {
 		this.setState({show_detail: !show_detail});
 		
 	}
+
 
 
 	render(){
@@ -94,10 +94,19 @@ class Game extends React.Component {
 				borderWidth: '0 2px 2px 0',
 				display: 'inline-block',
 				padding: '2px',
+			},
+			upArrow: {
+				transform: 'rotate(-135deg)',
+				'WebkitTransform': 'rotate(45deg)',
+				border: 'solid black',
+				borderWidth: '0 2px 2px 0',
+				display: 'inline-block',
+				padding: '2px',
 			}
 
 		};
 		const game = this.props.game;
+
 
 		if (game === undefined){
 			return (
@@ -117,12 +126,20 @@ class Game extends React.Component {
 			var awayTeamWon = awayTeamScore > homeTeamScore? true : false;
 
 			// Find out the path of the teams logos
-			// var awayTeamLogo = IMG_DIR + game.away_team_id + '.jpg';
-			// var homeTeamLogo = IMG_DIR + game.home_team_id + '.jpg';
+			var dir = {
+				'141': './img/141.jpg',
+				'108': './img/108.jpg',
+				'109': './img/109.jpg',
+				'134': './img/134.jpg',
+				'136': './img/136.jpg',
+			}
+			var awayTeamLogo = './img/141.jpg';
+			var homeTeamLogo = './img/140.jpg';
+
 
 			return (
 				<div style={[style.game]}>
-					<img src={require("./img/141.jpg")} style={style.teamLogo}/>
+					<img src={require('./img/141.jpg')} style={style.teamLogo}/>
 					<div className="away_team" style={style.teamName}>
 						{
 							awayTeamWon ? 
@@ -138,7 +155,7 @@ class Game extends React.Component {
 
 					<br/>
 
-					<img src={require("./img/140.jpg")} style={style.teamLogo}/>
+					<img src={require('./img/140.jpg')} style={style.teamLogo}/>
 					<div className="home_team" style={style.teamName}>
 						{
 							!awayTeamWon ? 
@@ -160,8 +177,11 @@ class Game extends React.Component {
 						</div>
 
 						<div className="detail-btn" style={style.detailBtn} onClick={this.onClick}>
-							<div className="down-arrow" style={style.downArrow}>
-							</div>
+							{this.state.show_detail ?
+								<div style={style.upArrow}></div> :
+								<div style={style.downArrow}></div>
+							}
+							
 						</div>
 					</div>
 					
