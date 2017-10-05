@@ -86,7 +86,7 @@ class Games extends React.Component {
 	render(){
 		const style = {
 			gamesWrapper: {
-				marginTop: '5rem'
+				marginTop: '2rem'
 			}
 
 		};

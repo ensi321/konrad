@@ -125,17 +125,6 @@ class Game extends React.Component {
 
 			var awayTeamWon = awayTeamScore > homeTeamScore? true : false;
 
-			// Find out the path of the teams logos
-			var dir = {
-				'141': './img/141.jpg',
-				'108': './img/108.jpg',
-				'109': './img/109.jpg',
-				'134': './img/134.jpg',
-				'136': './img/136.jpg',
-			}
-			var awayTeamLogo = './img/141.jpg';
-			var homeTeamLogo = './img/140.jpg';
-
 
 			return (
 				<div style={[style.game]}>

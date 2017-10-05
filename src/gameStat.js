@@ -72,11 +72,11 @@ class GameStat extends React.Component {
 		}
 
 	}
-	// Will display away team's batter
+	// Will display away team's batter/pitcher
 	showAwayTeam(){
 		this.setState({show_away_team: true});
 	}
-	// Will display home team's batter
+	// Will display home team's batter/pitcher
 	showHomeTeam(){
 		this.setState({show_away_team: false});
 	}

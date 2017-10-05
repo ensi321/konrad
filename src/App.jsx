@@ -1,7 +1,8 @@
 import React from 'react';
-import Games from './games.jsx';
 import Radium from 'radium';
 import Pikaday from 'pikaday';
+
+import Games from './games.jsx';
 
 var INITIAL_DATE = new Date(2017, 2, 5)
 // Initial favourite team is blue jay
@@ -119,8 +120,7 @@ class App extends React.Component {
 				position: 'absolute',
 				margin: 'auto',
 				left: '10%',
-				top: '0',
-				bottom: '0',
+				top: '0.75rem',
 				padding: '8px 20px',
 				cursor: 'pointer',
 
@@ -132,7 +132,23 @@ class App extends React.Component {
 					'display': 'inline-block'
 				}
 
-			}
+			},
+			fav_team: {
+				display: 'block',
+				width: '100%',
+				marginTop: '2rem',
+				'@media (min-width: 940px)':{
+					width: 'auto',
+					display: 'inline-block',
+					fontSize: '1rem',
+					position: 'absolute',
+					margin: 'auto',
+					right: '5%',
+					top: '0',
+					bottom: '0'
+				}
+			},
+
 
 
 		};
@@ -145,8 +161,14 @@ class App extends React.Component {
 						{this.state.current_date.toDateString()}
 					</div>
 					<a onClick={this.nextDay} style={[style.dayButton, style.nextButton]} key="next"> &#8250; </a>
+					<div style={style.fav_team}>
+						Your favourite team is 
+						<br />
+						Blue Jays
+					</div>
 				</div>
 				<Games current_date={this.state.current_date} fav_team={this.state.fav_team} />
+
 			</div>
 		);
 	}
