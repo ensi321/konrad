@@ -2,8 +2,15 @@ import React from 'react';
 import Radium from 'radium';
 import axios from 'axios';
 
-import GameInning from './gameInning.jsx';
+import GameLineScore from './gameLineScore.jsx';
 import GameStat from './gameStat.jsx';
+
+/*
+	GameDetail: Request the detailed stat of this particular game to gd2.mlb. Stat will be passed to 
+		GameLineScore and GameStat. 
+	Parent component: Game
+	Child component: GameLineScore, GameStat
+*/
 
 class GameDetail extends React.Component {
 
@@ -79,7 +86,7 @@ class GameDetail extends React.Component {
 			}
 			return (
 					<div style={style.gameDetail}>
-						<GameInning boxscore={boxscore} />
+						<GameLineScore boxscore={boxscore} />
 
 						<GameStat boxscore={boxscore} />
 

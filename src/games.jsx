@@ -4,6 +4,14 @@ import Radium from 'radium';
 
 import Game from './game.jsx'
 
+/*
+	Games: Get data of games given the date. Sort the games based on fav_team. And render 
+		Game component for each game in the retrieved data
+	Parent component: App
+	Child component: Game
+
+*/
+
 class Games extends React.Component {
 
 	constructor(props) {

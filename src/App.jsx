@@ -8,6 +8,13 @@ var INITIAL_DATE = new Date(2017, 2, 5)
 // Initial favourite team is blue jay
 var INITIAL_FAV_TEAM = '141';
 
+/*
+	App: Overall of the application. Handle the app header which includes today buttons,
+		date navigation, and display of current favourite team.
+	Parent component: None
+	Child component: Games
+*/
+
 class App extends React.Component {
 
 	constructor(props) {

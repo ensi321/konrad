@@ -1,6 +1,14 @@
 import React from 'react';
 import Radium from 'radium';
-import GameDetail from './gameDetail'
+import GameDetail from './gameDetail.jsx'
+
+/*
+	Game: A display of the score, teams and their logos in a game. Data of this game is given by Games. 
+		Also include an arrow button which will show/hide the detail stat of the game by render/un-render
+		gameDetail component.
+	Parent component: Games
+	Child component: GameDetail
+*/
 
 
 class Game extends React.Component {

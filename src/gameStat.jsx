@@ -1,6 +1,14 @@
 import React from 'react';
 import Radium from 'radium';
 
+/*
+	GameStat: Given the data from GameDetail, display stat of batters and pitchers from 
+		home and away team. 2 toggles are used for users to display 1 of the 4 sets of data.
+
+	Parent component: GameStat
+	Child component: None
+*/
+
 class GameStat extends React.Component {
 	constructor(props) {
 		super(props);

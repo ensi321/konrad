@@ -1,7 +1,13 @@
 import React from 'react';
 import Radium from 'radium';
 
-class GameInning extends React.Component {
+/*
+	GameLineScore: Given the linescore from GameDetail, display the linescore inning by inning.
+	Parent component: GameDetail
+	Child component: None
+*/
+
+class GameLineScore extends React.Component {
 	render(){
 		const style = {
 			inningTable: {
@@ -86,4 +92,4 @@ class GameInning extends React.Component {
 
 }
 
-export default Radium(GameInning);
+export default Radium(GameLineScore);
