@@ -6,6 +6,10 @@ import GameDetail from './gameDetail'
 class Game extends React.Component {
 	constructor(props) {
 		super(props);
+		/*
+			show_detail: Boolean that changed when the detail button is clicked. 
+				If true, render gameDetail component, render none if false.
+		*/
 		this.state = {
 			show_detail: false
 		}
@@ -107,7 +111,7 @@ class Game extends React.Component {
 		};
 		const game = this.props.game;
 
-
+		// There is no game for this day if game is undefined
 		if (game === undefined){
 			return (
 				<div style={[style.noGame]}>
@@ -128,7 +132,7 @@ class Game extends React.Component {
 
 			return (
 				<div style={[style.game]}>
-					<img src={require('./img/141.jpg')} style={style.teamLogo}/>
+					<img src={require('./img/141.jpg')} style={style.teamLogo} alt="Blue Jays Logo"/>
 					<div className="away_team" style={style.teamName}>
 						{
 							awayTeamWon ? 
@@ -144,7 +148,7 @@ class Game extends React.Component {
 
 					<br/>
 
-					<img src={require('./img/140.jpg')} style={style.teamLogo}/>
+					<img src={require('./img/140.jpg')} style={style.teamLogo} alt="Rangers Logo"/>
 					<div className="home_team" style={style.teamName}>
 						{
 							!awayTeamWon ? 

@@ -2,13 +2,19 @@ import React from 'react';
 import Radium from 'radium';
 import axios from 'axios';
 
-import GameInning from './gameInning';
-import GameStat from './gameStat';
+import GameInning from './gameInning.jsx';
+import GameStat from './gameStat.jsx';
 
 class GameDetail extends React.Component {
 
 	constructor(props) {
 		super(props);
+		/*
+			boxscore: An object that is retrieved by requesting to gd2.mlb. All the
+				necessary stat to display in this component is in boxscore.
+			fetch_fail: Boolean that will set true if ajax failed to fetch. When true,
+				render function will render an error message to user.
+		*/
 		this.state = {
 			boxscore: {},
 			fetch_fail: false,
@@ -20,6 +26,7 @@ class GameDetail extends React.Component {
 	updateContent(p){
 		const game = (typeof p === 'undefined') ? this.props.game : p.game;
 
+		// If no game, do not update
 		if (typeof game === 'undefined'){
 			return
 		}

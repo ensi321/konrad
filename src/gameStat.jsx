@@ -1,11 +1,19 @@
 import React from 'react';
 import Radium from 'radium';
-import axios from 'axios';
-import update from 'immutability-helper';
 
 class GameStat extends React.Component {
 	constructor(props) {
 		super(props);
+		/*
+			away_batter: List of batters from away team. Each element includes stat of that peron.
+			home_batter: List of batters from home team.
+			home_pitcher: List of pitchers from home team.
+			home_pitcher: List of pitchers from home team.
+			show_away_team: Boolean changed triggered by onclick to togger whether to show
+					away team's stat or home team's.
+			show_batter: Boolean changed triggered by onclick to togger whether to show
+					team's batter or pitcher.
+		*/
 		this.state = {
 			away_batter: [],
 			home_batter: [],

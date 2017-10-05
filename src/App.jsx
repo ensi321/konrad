@@ -12,6 +12,11 @@ class App extends React.Component {
 
 	constructor(props) {
 		super(props);
+		/*
+			current_date: A date object that dictates which data do we request from gd2.mlb.
+			fav_team: An id of one of the mlb teams such that when rendering Games, games that 
+				involves fav_team will be on top of the list.
+		*/
 		this.state = {
 			current_date: INITIAL_DATE,
 			fav_team: INITIAL_FAV_TEAM
@@ -39,7 +44,6 @@ class App extends React.Component {
 	}
 
 	// Set current date to today
-
 	today(){
 		var new_date = new Date();
 		this.picker.setDate(new_date);

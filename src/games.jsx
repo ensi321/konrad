@@ -8,6 +8,10 @@ class Games extends React.Component {
 
 	constructor(props) {
 		super(props);
+		/*
+			games: A list of games that are retrieved by requesting to gd2.mlb. Then
+				a Game component is rendered for each game in games.
+		*/
 		this.state = {
 			games: []
 		};
@@ -106,11 +110,6 @@ class Games extends React.Component {
 						);
 
 				})}
-
-
-					
-				
-
 			</div>
 			)
 	}

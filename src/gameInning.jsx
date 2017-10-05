@@ -1,6 +1,5 @@
 import React from 'react';
 import Radium from 'radium';
-import axios from 'axios';
 
 class GameInning extends React.Component {
 	render(){
